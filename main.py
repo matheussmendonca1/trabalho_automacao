@@ -2,6 +2,9 @@ import wget
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+import selenium.webdriver.support.expected_conditions as EC
+import base64
 
 
 # cria um dataframe vazio com as colunas relacionadas com os dados coletados do site
@@ -11,41 +14,53 @@ planilha = pd.DataFrame(columns=['Nome', 'Preco', 'Imagem'])
 navegador = webdriver.Firefox()
 
 # abrir uma página no navegador
+navegador.get("https://lista.mercadolivre.com.br/cadeira-gamer#D[A:cadeira_gamer]")
 
+
+wait = WebDriverWait(navegador, 20)
+
+# procurar pelo elemento que possui o nome do produto
+elementNome = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.poly-component__title > a')))
+print(len(elementNome))
+
+# procura pelo preco do produto
+elementPreco = navegador.find_elements(By.CSS_SELECTOR, '.andes-money-amount > .andes-money-amount__fraction')
+
+# procurar pelo elemento que possui a imagem do pokemon
+elementImagem = navegador.find_elements(By.CLASS_NAME, 'poly-component__picture')
+
+# loop para gerar os novos nomes nas imagens e armazenar os dados em ordem na planilha
 contador = 0
-navegador.get("https://www.amazon.com.br/s?k=notebook&crid=2G9GE1TUWS1Q2&sprefix=n%2Caps%2C428&ref=nb_sb_ss_ts-doa-p_1_1")
 
-while contador < 2:
-
-    # procurar pelo elemento que possui o nome do produto
-    elementNome = navegador.find_element(By.CSS_SELECTOR, '.a-size-mini .a-spacing-none .a-color-base .s-line-clamp-4')
-
-    # procura pelo preco do produto
-    elementPreco = navegador.find_element(By.CLASS_NAME, 'a-price-whole')
-
-    # procurar pelo elemento que possui a imagem do pokemon
-    elementImagem = navegador.find_elements(By.CLASS_NAME, 's-image')
-    endercoImage = elementImagem.get_attribute('src')
+for img in elementImagem:
+    endercoImagem = img.get_attribute('src')
+    contador = contador + 1
 
     # cria um novo nome para a imagem
-    nomeProduto = elementNome.split(' ')[0]
-    extensaoImg = endercoImage.split('.')[-1]
+    #extensaoImg = "webp"
+    extensaoImg = endercoImagem.split('.')[-1]
+
+    nomeProduto = "cadeira_produto_" + str(contador)
     nomeImagem = nomeProduto + "." + extensaoImg
     ondeSalvar = "./img/" + nomeImagem
 
-    wget.download(endercoImage, ondeSalvar)
-
-    print("Nome:", elementNome.text)
-    print("Preco:", elementPreco.text)
-    print("Imagem:", nomeImagem.text)
-
-    # adiciona os dados na planilha
-    planilha.loc[contador] = [elementNome.text, elementPreco.text, nomeImagem]
     
-    contador += 1
+    if "data" not in extensaoImg:
+
+        wget.download(endercoImagem, ondeSalvar)
+
+        print("Nome:", elementNome[contador].text)
+        print("Preco:", elementPreco[contador].text)
+        print("Imagem:", nomeImagem)
+
+        # adiciona os dados na planilha
+        planilha.loc[contador] = [elementNome[contador].text, elementPreco[contador].text + ',00', nomeImagem]
+        
+   
 
 # salva a planilha em formato de excel
 planilha.to_excel('pokemons.xlsx', index=False)
+print("Terminei")
 
 # mantem a página aberta
 input()
