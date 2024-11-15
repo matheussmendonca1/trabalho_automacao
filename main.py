@@ -2,9 +2,6 @@ import wget
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-import selenium.webdriver.support.expected_conditions as EC
-import base64
 
 
 # cria um dataframe vazio com as colunas relacionadas com os dados coletados do site

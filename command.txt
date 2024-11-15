@@ -1,1 +1,5 @@
 python -m venv environment
+pip install pandas
+pip install selenium
+pip install wget
+pip install openpyxl
