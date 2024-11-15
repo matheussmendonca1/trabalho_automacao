@@ -1,0 +1,22 @@
+Trabalho de Matheus Mendonça e Luis Pedro. 3INFOB
+
+1. Estrutura e desenvolvimento
+
+O navegador utilizado para testes é o Firefox, mas será disponibilizado o arquivo para utilização do Chrome também.
+
+O trabalho foi desenvolvido em Python utilizando as ferramentas Pandas, Selenium e Wget.
+O intuito do trabalho é coletar dados de produtos a partir de uma página de loja virtual e salvar as informações de cada um em uma planilha. Além disso, as imagens também devem ser salvas.
+
+A foi utilizada a loja virtual Amazon e foi realizada a busca "notebook", passada pela URL na inicialização do navegador.
+
+Com base nisso foi usado o método "find_elements(By.CLASS_NAME, '...')" para retornar uma lista de elementos como resultado da pesquisa. O método foi necessário na busca do Nome, Preço e Imagem dos produtos. A partir dessas listas, a estrutura de repetição While fez-se útil para iterar nos elementos e buscar itens específicos de 0 a 14 (totalizando 15 itens). Com isso, foram feitos prints no terminal identificando os produtos com nome, preço e nome da imagem de cada um.
+
+Ao final de cada iteração, foi feita a adição de cada produto na planilha utilizando o Pandas.
+
+2. Desafios
+
+2.1 O desafio principal foi a busca por elementos específicos na página da Amazon, pois a estrutura da página não é estática e pode mudar a cada atualização.
+2.2. Outro desafio foi no início em que a ideia era utilizar o site do Mercado Livre e algumas das imagens eram em formato de Gif e a busca das imagens era comprometida, após isso foi decidida a mudança para a Amazon e os porblemas foram minimizados.
+2.3. De início a ideia era buscar por cadeiras gamer na loja da Amazon, mas estava dando bug no método split quando chegava a uma determinada imagem. Após isso foi feita a mudança para notebooks e o problema foi minimizado.
+
+

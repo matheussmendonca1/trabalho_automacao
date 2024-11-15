@@ -14,7 +14,7 @@ planilha = pd.DataFrame(columns=['Nome', 'Preco', 'Imagem'])
 navegador = webdriver.Firefox()
 
 # abrir uma página no navegador
-navegador.get("https://www.amazon.com.br/s?k=cadeira+gamer&__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&ref=nb_sb_noss")
+navegador.get("https://www.amazon.com.br/s?k=notebook&__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1AP5DD1ETMLKI&sprefix=notebook%2Caps%2C256&ref=nb_sb_noss_1")
 
 
 # wait = WebDriverWait(navegador, 20)
@@ -40,7 +40,7 @@ while contador < 15:
     #extensaoImg = "webp"
     extensaoImg = endercoImage.split('.')[-1]
 
-    nomeProduto = "cadeira_produto_" + str(contador)
+    nomeProduto = "notebook_produto_" + str(contador)
     nomeImagem = nomeProduto + "." + extensaoImg
     ondeSalvar = "./img/" + nomeImagem
 
@@ -62,6 +62,6 @@ while contador < 15:
 planilha.to_excel('produtos.xlsx', index=True)
 
 # mantem a página aberta
-input("digite algo para encerrar")
+input("ENTER para encerrar")
 
 
