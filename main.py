@@ -31,18 +31,17 @@ print(len(elementImage))
 # loop para gerar os novos nomes nas imagens e armazenar os dados em ordem na planilha
 contador = 0
 while contador < 15:
-    endercoImage = elementImage[contador].get_attribute('src')
+    enderecoImage = elementImage[contador].get_attribute('src')
 
     # cria um novo nome para a imagem
-    #extensaoImg = "webp"
-    extensaoImg = endercoImage.split('.')[-1]
+    extensaoImg = enderecoImage.split('.')[-1]
 
     nomeProduto = "notebook_produto_" + str(contador)
     nomeImagem = nomeProduto + "." + extensaoImg
-    ondeSalvar = "./img/" + nomeImagem
+    ondeSalvar = ".\\img\\" + nomeImagem
 
 
-    wget.download(endercoImage, ondeSalvar)
+    wget.download(enderecoImage, ondeSalvar)
 
     print("Nome:", elementNome[contador].text)
     print("Preco:", elementPreco[contador].text)
